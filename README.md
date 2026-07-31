@@ -13,9 +13,9 @@ https://indadady.github.io/260928_Tokyo/
 | 단체 | 화성시의회 |
 | 일정 | 2026.09.28(월) ~ 10.02(금) · 4박5일 |
 | 인원 | 14명 (14+1TG) · 2인1실 · 전용차량(45인승) |
-| 항공 | KE703 ICN→NRT / KE704 NRT→ICN (참고 · LAND ONLY) |
+| 항공 | KE703 ICN→NRT / KE704 NRT→ICN |
 | 호텔 | 시나가와 프린스 OR 동급 (4성급) |
-| 조건 | 노쇼핑 / 노옵션 · LAND ONLY |
+| 조건 | 노쇼핑 / 노옵션 |
 | 문서번호 | SV-260928-TOKYO |
 
 ## Contacts

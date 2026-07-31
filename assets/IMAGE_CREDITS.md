@@ -4,7 +4,7 @@
 |------|--------|---------|
 | hero.jpg | [Commons: Senso-ji Temple @ Asakusa (14019477806).jpg](https://commons.wikimedia.org/wiki/File:Senso-ji_Temple_@_Asakusa_(14019477806).jpg) | CC BY (per file page) |
 | og-thumb.jpg | [Commons: Minato Mirai - Yokohama Skyline March 2025.jpg](https://commons.wikimedia.org/wiki/File:Minato_Mirai_-_Yokohama_Skyline_March_2025.jpg) | CC BY-SA (per file page) |
-| hotel.jpg | [Commons: Shinagawa Station -01.jpg](https://commons.wikimedia.org/wiki/File:Shinagawa_Station_-01.jpg) — 시나가와 역·호텔 지구 참고 전경 (호텔 공식컷 아님) | CC BY-SA (per file page) |
+| hotel.jpg | [Commons: Prince Hotel and Shinagawa station.jpg](https://commons.wikimedia.org/wiki/File:Prince_Hotel_and_Shinagawa_station.jpg) — 시나가와 프린스 호텔 전경 | CC BY-SA (per file page) |
 | day1-sensoji.jpg | [Commons: Senso-ji Temple @ Asakusa (14019477806).jpg](https://commons.wikimedia.org/wiki/File:Senso-ji_Temple_@_Asakusa_(14019477806).jpg) | CC BY (per file page) |
 | day1-nakamise.jpg | [Commons: Nakamise Asakusa 20190420 2](https://commons.wikimedia.org/wiki/File:Nakamise,_Asakusa,_Tokyo_as_seen_from_the_Asakusa_Culture_Tourist_Information_Center_20190420_2.jpg) | CC BY-SA (per file page) |
 | day2-toyosu.jpg | [Commons: Toyosu Market Tokyo 2.jpg](https://commons.wikimedia.org/wiki/File:Toyosu_Market_Tokyo_2.jpg) | CC BY-SA (per file page) |
