@@ -9,6 +9,7 @@
 | day1-shinjuku.jpg | Wikimedia Commons Kabukicho neon street | CC (per file page) |
 | day1-sensoji.jpg | [Commons: Senso-ji Temple @ Asakusa](https://commons.wikimedia.org/wiki/File:Senso-ji_Temple_@_Asakusa_(14019477806).jpg) | CC BY (per file page) |
 | day1-nakamise.jpg | [Commons: Nakamise Asakusa](https://commons.wikimedia.org/wiki/File:Nakamise,_Asakusa,_Tokyo_as_seen_from_the_Asakusa_Culture_Tourist_Information_Center_20190420_2.jpg) | CC BY-SA (per file page) |
+| day2-fujisawa-sst.jpg | [Commons: 湘南T-SITE (20253522462).jpg](https://commons.wikimedia.org/wiki/File:%E6%B9%98%E5%8D%97T-SITE_(20253522462).jpg) — 후지사와 SST 내 湘南T-SITE | CC BY 2.0 (per file page) |
 | day2-senkyaku.jpg | Wikimedia Commons Toyosu / Senkyaku area | CC (per file page) |
 | day2-toyosu.jpg | [Commons: Toyosu Market Tokyo 2.jpg](https://commons.wikimedia.org/wiki/File:Toyosu_Market_Tokyo_2.jpg) | CC BY-SA (per file page) |
 | day2-odaiba.jpg | [Commons: Rainbow Bridge Odaiba](https://commons.wikimedia.org/wiki/File:Rainbow_Bridge,_Tokyo,_South_view_from_Odaiba_20190419_1.jpg) | CC BY-SA (per file page) |
