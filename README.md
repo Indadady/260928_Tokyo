@@ -14,7 +14,7 @@ https://indadady.github.io/260928_Tokyo/
 | 일정 | 2026.09.28(월) ~ 10.02(금) · 4박5일 |
 | 인원 | 20명 (20+1TG) · 1인1실 · 전용차량(45인승) |
 | 항공 | KE703 ICN→NRT / KE704 NRT→ICN |
-| 호텔 | 데이나이스 도쿄 호텔 OR 동급 (3성급) |
+| 호텔 | 데이나이스 도쿄 호텔 OR 동급 |
 | 호텔 사이트 | https://daynice-hotel.com/ |
 | 문서번호 | SV-260928-TOKYO |
 
