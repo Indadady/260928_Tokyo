@@ -84,7 +84,18 @@
             header, footer, section:not(#print-area), .no-print, #toast, #custom-confirm, #phrase-modal { display: none !important; }
             main, body { padding: 0 !important; margin: 0 !important; width: 100% !important; background: #fff !important; }
 
-            #print-area { display: block !important; width: 100%; box-sizing: border-box; page-break-after: avoid; page-break-inside: avoid; }
+            #print-area { display: block !important; width: 100%; box-sizing: border-box; }
+            .print-extra { display: flex; gap: 10px; margin-top: 10px; align-items: stretch; page-break-inside: avoid; break-inside: avoid; }
+            .print-checklist { flex: 1; border: 1.5px solid #1e293b; padding: 8px 10px; background: #fff !important; }
+            .print-checklist h2 { font-size: 11px; font-weight: 800; color: var(--tm); margin: 0 0 6px 0; }
+            .print-checklist-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 10px; font-size: 9.5px; font-weight: 600; }
+            .print-check-item { display: flex; align-items: flex-start; gap: 5px; line-height: 1.35; }
+            .print-check-box { width: 10px; height: 10px; border: 1.3px solid var(--tm); border-radius: 2px; flex-shrink: 0; margin-top: 1.5px; }
+            .print-qr-box { width: 40%; display: flex; align-items: center; gap: 8px; padding: 8px 10px; border: 1.5px solid #1e293b; background: #f8fafc !important; }
+            .print-qr-box img { width: 78px; height: 78px; border: 1px solid #1e293b; background: #fff; flex-shrink: 0; }
+            .print-qr-box .qr-copy { font-size: 9.5px; line-height: 1.4; font-weight: 600; }
+            .print-qr-box .qr-copy strong { color: var(--tm); font-size: 11px; display: block; margin-bottom: 2px; }
+            .print-qr-box .qr-url { color: #475569; font-size: 8.5px; word-break: break-all; font-weight: 500; }
             .print-header-top { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid var(--tm); padding-bottom: 6px; margin-bottom: 12px; }
             .print-header-top img { height: 28px; background: transparent; padding: 0; border-radius: 0; }
             .print-doc-no { font-size: 9px; color: #555; font-weight: bold; }
@@ -284,6 +295,30 @@
                     </tr>
 </tbody>
             </table>
+
+            <div class="print-extra">
+                <div class="print-checklist">
+                    <h2>□ 출발 전 준비물</h2>
+                    <div class="print-checklist-grid">
+                        <div class="print-check-item"><span class="print-check-box"></span>여권 (유효기간 6개월 이상)</div>
+                        <div class="print-check-item"><span class="print-check-box"></span>여권 사본 (분실 대비)</div>
+                        <div class="print-check-item"><span class="print-check-box"></span>엔화(¥) · 해외겸용 카드</div>
+                        <div class="print-check-item"><span class="print-check-box"></span>편한 신발 (시찰·도보 다수)</div>
+                        <div class="print-check-item"><span class="print-check-box"></span>상비약 · 멀미약</div>
+                        <div class="print-check-item"><span class="print-check-box"></span>개인 세면도구</div>
+                        <div class="print-check-item"><span class="print-check-box"></span>얇은 겉옷 (아침저녁 쌀쌀)</div>
+                        <div class="print-check-item"><span class="print-check-box"></span>돼지·돼지고기 제품 반입 주의</div>
+                    </div>
+                </div>
+                <div class="print-qr-box">
+                    <img src="assets/images/guidebook-qr.png" alt="스마트 가이드북 QR코드" width="78" height="78">
+                    <div class="qr-copy">
+                        <strong>스마트 가이드북</strong>
+                        QR을 스캔하면 실시간 날씨·동선·세부 일정을 휴대폰에서 확인할 수 있습니다.<br>
+                        <span class="qr-url">https://indadady.github.io/260928_Tokyo/</span>
+                    </div>
+                </div>
+            </div>
 
             <div class="print-contacts">
                 <span><span class="pc-role">담당</span> 양리리 010-2359-3449</span>

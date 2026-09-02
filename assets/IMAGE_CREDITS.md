@@ -18,5 +18,6 @@
 | day4-skytree.jpg | Wikimedia Commons Tokyo Skytree | CC (per file page) |
 | day5-tsukiji.jpg | [Commons: Tsukiji Outer Market](https://commons.wikimedia.org/wiki/File:Tsukiji_Outer_Market_2.jpg) | CC (per file page) |
 | syncverse-logo.png | SYNCVERSE 브랜드 자산 | 담당자 제공 |
+| guidebook-qr.png | 스마트 가이드북 URL QR (`https://indadady.github.io/260928_Tokyo/`) | 자체 생성 |
 
 All sightseeing images hosted locally under `assets/images/`. Hotel exterior from official hotel site URL listed on Syncverse quote PDF.
