@@ -51,6 +51,7 @@
         @media(min-width:1024px) { #map { height: 500px; } }
         #map-leg { position: absolute; top: 12px; left: 12px; z-index: 500; display: none; background: rgba(255,255,255,.94); border-radius: 999px; padding: 6px 14px; font-size: 12px; font-weight: 800; color: var(--tm); box-shadow: 0 4px 12px rgba(15,23,42,.12); pointer-events: none; max-width: calc(100% - 24px); }
         .map-vehicle { font-size: 26px; line-height: 1; display: flex; align-items: center; justify-content: center; filter: drop-shadow(0 2px 3px rgba(0,0,0,.35)); }
+        .traveler-icon { background: none !important; border: none !important; }
         .map-marker-bubble { background: #fff; border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,.3); border: 2px solid #fff; display: flex; align-items: center; justify-content: center; opacity: 0; }
         @keyframes popIn { 0% { transform: scale(0); opacity: 0; } 80% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
         .leaflet-tooltip { font-family: 'Noto Sans KR', sans-serif !important; font-weight: 700 !important; color: #1e293b !important; border-radius: 8px !important; border: none !important; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1) !important; padding: 4px 10px !important; }
@@ -1002,7 +1003,7 @@
         }
         updateDday();
 
-        let map, layerGroup, mapDrawSeq = 0, vehicleMarker = null;
+        let map, layerGroup, mapDrawSeq = 0, vehicleMarker = null, vehicleMode = null;
         const osrmCache = {};
         const spots = {
             icn:         { c:[37.4602, 126.4407], t:'인천공항', col:'#64748b', i:'<i class="fa-solid fa-plane-departure"></i>' },
@@ -1067,18 +1068,76 @@
         function isMobileMap(){ return window.matchMedia('(max-width:768px)').matches; }
         function segMs(mode){
             const m = isMobileMap();
-            if(mode === 'flight') return m ? 3400 : 1700;
-            return m ? 3800 : 1900;
+            if(mode === 'flight') return m ? 5000 : 2500;
+            return m ? 5200 : 2600;
+        }
+        function easeInOut(p){
+            return p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
         }
         function bearingDeg(a, b){
-            const toRad = Math.PI/180;
-            const y = Math.sin((b[1]-a[1])*toRad) * Math.cos(b[0]*toRad);
-            const x = Math.cos(a[0]*toRad)*Math.sin(b[0]*toRad) - Math.sin(a[0]*toRad)*Math.cos(b[0]*toRad)*Math.cos((b[1]-a[1])*toRad);
-            return (Math.atan2(y,x)*180/Math.PI + 360) % 360;
+            const lat1 = (a.lat ?? a[0]) * Math.PI / 180;
+            const lat2 = (b.lat ?? b[0]) * Math.PI / 180;
+            const dLng = ((b.lng ?? b[1]) - (a.lng ?? a[1])) * Math.PI / 180;
+            const y = Math.sin(dLng) * Math.cos(lat2);
+            const x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLng);
+            return (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
         }
-        function vehicleRot(mode, brg){
-            if(mode === 'flight') return brg - 45;
-            return brg - 90;
+        function headingParts(mode, bearing){
+            const nose = mode === 'flight' ? 45 : 270;
+            let rot = ((bearing - nose + 540) % 360) - 180;
+            let flip = 1;
+            if(mode !== 'flight' && Math.abs(rot) > 90){
+                flip = -1;
+                rot += rot > 0 ? -180 : 180;
+            }
+            return { rot, flip };
+        }
+        function travelerIcon(mode, bearing){
+            const emoji = mode === 'flight' ? '✈️' : '🚌';
+            const { rot, flip } = headingParts(mode, bearing);
+            return L.divIcon({
+                className: 'traveler-icon',
+                html: `<div class="traveler-rot" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 3px 6px rgba(0,0,0,.4));transform:rotate(${rot}deg);"><span class="traveler-flip" style="font-size:28px;line-height:1;display:block;transform:scaleX(${flip});">${emoji}</span></div>`,
+                iconSize: [44, 44],
+                iconAnchor: [22, 22]
+            });
+        }
+        function densifyLine(a, b, n){
+            const path = [];
+            for(let i = 0; i <= n; i++){
+                const t = i / n;
+                path.push([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]);
+            }
+            return path;
+        }
+        function latLngAlong(latlngs, t){
+            if(!latlngs.length) return null;
+            const pts = latlngs.map(p => L.latLng(p));
+            if(t <= 0) return pts[0];
+            if(t >= 1) return pts[pts.length - 1];
+            let total = 0;
+            const segs = [];
+            for(let i = 0; i < pts.length - 1; i++){
+                const d = pts[i].distanceTo(pts[i + 1]);
+                segs.push({ a: pts[i], b: pts[i + 1], d });
+                total += d;
+            }
+            if(!total) return pts[0];
+            let remain = total * t;
+            for(const s of segs){
+                if(remain <= s.d || s.d === 0){
+                    const r = s.d ? remain / s.d : 0;
+                    return L.latLng(s.a.lat + (s.b.lat - s.a.lat) * r, s.a.lng + (s.b.lng - s.a.lng) * r);
+                }
+                remain -= s.d;
+            }
+            return pts[pts.length - 1];
+        }
+        function lookAhead(latlngs, t){
+            return {
+                a: latLngAlong(latlngs, Math.max(0, t - 0.015)),
+                b: latLngAlong(latlngs, Math.min(1, t + 0.03))
+            };
         }
         async function roadPath(a, b){
             const key = a.join(',')+'|'+b.join(',');
@@ -1109,35 +1168,51 @@
              .bindTooltip('<b>'+s.t+'</b>', { direction:'top' })
              .addTo(layerGroup);
         }
-        function moveVehicle(ll, rot, emoji){
-            const html = `<div class="map-vehicle" style="transform:rotate(${rot}deg)">${emoji}</div>`;
-            const icon = L.divIcon({ className:'', html, iconSize:[28,28], iconAnchor:[14,14] });
+        function moveVehicle(ll, mode, bearing){
+            const { rot, flip } = headingParts(mode, bearing);
             if(!vehicleMarker){
-                vehicleMarker = L.marker(ll, { icon, zIndexOffset: 800 }).addTo(layerGroup);
-            } else {
-                vehicleMarker.setLatLng(ll);
-                vehicleMarker.setIcon(icon);
+                vehicleMode = mode;
+                vehicleMarker = L.marker(ll, { icon: travelerIcon(mode, bearing), zIndexOffset: 1200 }).addTo(layerGroup);
+                return;
             }
+            vehicleMarker.setLatLng(ll);
+            if(vehicleMode !== mode){
+                vehicleMode = mode;
+                vehicleMarker.setIcon(travelerIcon(mode, bearing));
+                return;
+            }
+            const el = vehicleMarker.getElement();
+            const wrap = el && el.querySelector('.traveler-rot');
+            const span = el && el.querySelector('.traveler-flip');
+            if(wrap) wrap.style.transform = `rotate(${rot}deg)`;
+            if(span) span.style.transform = `scaleX(${flip})`;
         }
         function animatePath(path, color, dash, mode, ms, seq){
             return new Promise(resolve => {
-                const pl = L.polyline(path, { color, weight: mode==='flight'?3:4, opacity:0.9, dashArray: dash || null }).addTo(layerGroup);
+                const pl = L.polyline(dash ? [path[0]] : path, { color, weight: mode==='flight'?3:4, opacity:0.9, dashArray: dash || null }).addTo(layerGroup);
                 const start = performance.now();
-                const emoji = mode === 'flight' ? '✈️' : '🚌';
                 function frame(now){
                     if(seq !== mapDrawSeq){ resolve(); return; }
-                    const t = Math.min(1, (now - start) / ms);
-                    const idx = Math.min(path.length-1, Math.floor(t * (path.length-1)));
-                    const i1 = Math.min(path.length-1, idx+1);
-                    const brg = bearingDeg(path[idx], path[i1] || path[idx]);
-                    moveVehicle(path[idx], vehicleRot(mode, brg), emoji);
-                    if(pl._path && !dash){
+                    const p = Math.min(1, (now - start) / ms);
+                    const t = easeInOut(p);
+                    const ll = latLngAlong(path, t);
+                    const hd = lookAhead(path, t);
+                    if(ll && hd.a && hd.b) moveVehicle(ll, mode, bearingDeg(hd.a, hd.b));
+                    if(dash && ll){
+                        const n = Math.max(1, Math.floor(t * (path.length - 1)));
+                        const pts = path.slice(0, n + 1);
+                        pts.push([ll.lat, ll.lng]);
+                        pl.setLatLngs(pts);
+                    } else if(pl._path){
                         const len = pl._path.getTotalLength();
                         pl._path.style.strokeDasharray = String(len);
-                        pl._path.style.strokeDashoffset = String(len * (1-t));
+                        pl._path.style.strokeDashoffset = String(len * (1 - t));
                     }
-                    if(t < 1) requestAnimationFrame(frame);
-                    else resolve();
+                    if(p < 1) requestAnimationFrame(frame);
+                    else {
+                        pl.setLatLngs(path);
+                        resolve();
+                    }
                 }
                 requestAnimationFrame(frame);
             });
@@ -1174,6 +1249,7 @@
             const seq = ++mapDrawSeq;
             layerGroup.clearLayers();
             vehicleMarker = null;
+            vehicleMode = null;
 
             const route = routes[dayId] || routes.all;
             const hintEl = document.getElementById('map-hint');
@@ -1192,7 +1268,7 @@
                 const a = spots[seg.from], b = spots[seg.to];
                 if(!a || !b) continue;
                 setMapLeg(a.t, b.t);
-                const path = seg.mode === 'flight' ? [a.c, b.c] : await roadPath(a.c, b.c);
+                const path = seg.mode === 'flight' ? densifyLine(a.c, b.c, 72) : await roadPath(a.c, b.c);
                 if(seq !== mapDrawSeq) return;
                 path.forEach(pt => bounds.extend(pt));
                 map.fitBounds(bounds, { padding: [40, 40], maxZoom: route.maxZoom || 12 });
