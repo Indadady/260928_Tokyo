@@ -61,6 +61,7 @@
         .animate-fade-in-up { animation: fadeInUp .8s ease-out forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         section { scroll-margin-top: 70px; }
+        body.event-day section { scroll-margin-top: 148px; }
 
         .timeline-dot { position: absolute; left: -25px; top: 4px; width: 16px; height: 16px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 2px var(--tw-ring-color); background-color: var(--tw-bg-color); }
         @media(max-width:1023px) { .timeline-dot { left: -20px; top: 6px; width: 14px; height: 14px; border-width: 2px; } }
@@ -152,15 +153,16 @@
                 <span id="d-day-badge" class="bg-tm text-white text-[10px] px-2.5 py-1 rounded-full font-bold shadow-sm animate-pulse">상태 계산중</span>
             </div>
             <div class="flex-1 overflow-x-auto no-scrollbar ml-4 md:ml-8">
-                <div class="flex items-center space-x-1 md:space-x-3 whitespace-nowrap pr-4 text-sm">
-                    <a href="#home" class="px-3 py-2 font-bold text-slate-600 hover:text-tm rounded-lg">홈</a>
-                    <a href="#highlights" class="px-3 py-2 font-bold text-tm rounded-lg">핵심포인트</a>
-                    <a href="#flight" class="px-3 py-2 font-medium text-slate-600 hover:text-tm rounded-lg">항공</a>
-                    <a href="#map-section" class="px-3 py-2 font-medium text-slate-600 hover:text-tm rounded-lg">동선</a>
-                    <a href="#schedule" class="px-3 py-2 font-bold text-tm rounded-lg">상세일정</a>
-                    <a href="#hotel" class="px-3 py-2 font-medium text-slate-600 hover:text-tm rounded-lg">호텔</a>
-                    <a href="#smart-info" class="px-3 py-2 font-medium text-slate-600 hover:text-tm rounded-lg">여행비서</a>
-                    <a href="#contact" class="px-3 py-2 font-bold text-red-600 rounded-lg">연락망</a>
+                <div class="flex items-center space-x-1 md:space-x-2 whitespace-nowrap pr-4 text-sm">
+                    <a href="#home" class="px-2.5 py-2 font-bold text-slate-600 hover:text-tm rounded-lg">홈</a>
+                    <a href="#highlights" class="px-2.5 py-2 font-bold text-tm rounded-lg">여정핵심</a>
+                    <a href="#flight" class="px-2.5 py-2 font-medium text-slate-600 hover:text-tm rounded-lg">항공스케줄</a>
+                    <a href="#visit-japan" class="px-2.5 py-2 font-bold text-pink-600 hover:text-pink-700 rounded-lg">비짓재팬</a>
+                    <a href="#map-section" class="px-2.5 py-2 font-medium text-slate-600 hover:text-tm rounded-lg">동선지도</a>
+                    <a href="#schedule" class="px-2.5 py-2 font-bold text-tm rounded-lg">일자별일정</a>
+                    <a href="#hotel" class="px-2.5 py-2 font-medium text-slate-600 hover:text-tm rounded-lg">숙소안내</a>
+                    <a href="#smart-info" class="px-2.5 py-2 font-medium text-slate-600 hover:text-tm rounded-lg">날씨·환율</a>
+                    <a href="#contact" class="px-2.5 py-2 font-bold text-red-600 rounded-lg">비상연락</a>
                 </div>
             </div>
             <div class="flex items-center gap-1 shrink-0">
@@ -168,6 +170,20 @@
             </div>
         </nav>
     </header>
+
+    <!-- 행사 기간(9/28~10/2)에만 표시: 오늘의 일정 / 당일 동선 -->
+    <div id="event-day-bar" class="hidden sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-blue-100 shadow-sm no-print">
+        <div class="container mx-auto px-4 py-2.5">
+            <div class="grid grid-cols-2 gap-2 max-w-lg mx-auto">
+                <button type="button" onclick="goToTodaySchedule()" class="flex items-center justify-center gap-2 px-4 py-3 rounded-2xl border-2 border-tm bg-tm text-white font-bold text-sm shadow-md active:scale-95 transition">
+                    <i class="fa-solid fa-calendar-day"></i> 오늘의 일정
+                </button>
+                <button type="button" onclick="goToTodayRoute()" class="flex items-center justify-center gap-2 px-4 py-3 rounded-2xl border-2 border-slate-300 bg-white text-slate-700 font-bold text-sm shadow-sm active:scale-95 transition">
+                    <i class="fa-solid fa-route"></i> 당일 동선
+                </button>
+            </div>
+        </div>
+    </div>
 
     <main>
         <!-- ===== PRINT AREA ===== -->
@@ -183,7 +199,7 @@
             <div class="print-overview">
                 <div><span class="label">성격</span> 공식 연수</div>
                 <div><span class="label">일정</span> 2026.09.28(월) ~ 10.02(금)</div>
-                <div><span class="label">인원</span> 23명 (22+1TC+1TG) · 1인1실 · 전용차량(45인승)</div>
+                <div><span class="label">인원</span> 연수참가자 17명 (+1TC+1TG) · 1인1실 · 전용차량(45인승)</div>
                 <div><span class="label">항공</span> 대한항공 KE703 / KE704</div>
                 <div><span class="label">호텔</span> 데이나이스 도쿄 호텔 또는 동급</div>
                 <div><span class="label">조건</span> 스루가이드 현경수 · 전용버스(45인승)</div>
@@ -215,11 +231,10 @@
                     <tr class="tm-day-divider">
                         <td class="tm-col-date">2일차<br><span class="text-[9px] text-slate-500 font-normal">9/29(화)</span><br><br>도쿄</td>
                         <td class="tm-col-desc">
-                            <div class="tm-time-flow"><span class="tm-time-tag">전일</span> 유메노시마 · 오다이바 · 메이지신궁 · 오모테산도</div>
+                            <div class="tm-time-flow"><span class="tm-time-tag">전일</span> 유메노시마 · 오다이바 · 오모테산도 · 신주쿠</div>
                             <ul class="tm-desc-list">
                                 <li class="tm-highlight">유메노시마 열대식물관 방문 (공식 · 10:00~12:00)</li>
                                 <li>오다이바 관람 (레인보우브릿지·자유의여신상·다이버시티)</li>
-                                <li>메이지신궁</li>
                                 <li>오모테산도 &amp; 아오야마</li>
                                 <li>신주쿠 거리 관광</li>
                             </ul>
@@ -322,7 +337,7 @@
 
                 <div class="print-overview">
                     <div><span class="label">일정</span> 2026.09.28(월) ~ 10.02(금)</div>
-                    <div><span class="label">인원</span> 23명 · 1인1실</div>
+                    <div><span class="label">인원</span> 연수참가자 17명 (+1TC+1TG) · 1인1실</div>
                     <div><span class="label">항공</span> 대한항공 KE703 / KE704</div>
                     <div><span class="label">호텔</span> 데이나이스 도쿄 호텔 또는 동급</div>
                 </div>
@@ -376,7 +391,7 @@
         <section id="home" class="hero-bg min-h-[75vh] flex items-center justify-center text-center px-4 relative">
             <div class="animate-fade-in-up text-white z-10 w-full max-w-5xl">
                 <span class="bg-white/20 backdrop-blur-md px-6 py-2.5 rounded-full text-sm font-bold mb-6 inline-block border border-white/30 tracking-wide shadow-lg">
-                    도쿄 · 4박5일 · 23명
+                    도쿄 · 4박5일 · 연수참가자 17명
                 </span>
                 <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-5 drop-shadow-2xl font-[Nanum Myeongjo] leading-tight">
                     마루노우치에서 인자이까지<br><span class="text-blue-200">도쿄 공식 연수</span>
@@ -409,9 +424,9 @@
                         <p class="text-slate-600 text-sm leading-relaxed">유메노시마 열대식물관, 도쿄도 농림종합연구센터(토마토), 야마타네 정미공장 공식 방문을 진행합니다.</p>
                     </div>
                     <div class="bg-blue-50/50 p-8 rounded-3xl border border-blue-100 shadow-sm hover:-translate-y-1 transition-transform">
-                        <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-rose-500 text-2xl mb-4 shadow-sm"><i class="fa-solid fa-torii-gate"></i></div>
-                        <h3 class="text-xl font-bold text-slate-800 mb-3">메이지신궁 · 아사쿠사 · 스카이트리</h3>
-                        <p class="text-slate-600 text-sm leading-relaxed">메이지신궁·오모테산도·신주쿠, 아사쿠사 센소지·나가미세, 도쿄 스카이트리를 둘러봅니다.</p>
+                        <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-rose-500 text-2xl mb-4 shadow-sm"><i class="fa-solid fa-city"></i></div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-3">오모테산도 · 아사쿠사 · 스카이트리</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">오모테산도·아오야마·신주쿠, 아사쿠사 센소지·나가미세, 도쿄 스카이트리를 둘러봅니다.</p>
                     </div>
                 </div>
 
@@ -423,15 +438,15 @@
                 <div class="grid md:grid-cols-2 gap-4">
                     <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6">
                         <h4 class="font-bold text-tm mb-3 flex items-center gap-2"><i class="fa-solid fa-city"></i> 도쿄 — 마루노우치·황거·오다이바</h4>
-                        <p class="text-slate-600 text-sm leading-relaxed">마루노우치(도쿄역) 도시재생과 황거로 시작해 오다이바, 메이지신궁·오모테산도·신주쿠, 아사쿠사·스카이트리·츠키지를 둘러봅니다. 9월 말은 낮 기온 25°C 내외의 쾌적한 초가을입니다.</p>
+                        <p class="text-slate-600 text-sm leading-relaxed">마루노우치(도쿄역) 도시재생과 황거로 시작해 오다이바, 오모테산도·신주쿠, 아사쿠사·스카이트리·츠키지를 둘러봅니다. 9월 말은 낮 기온 25°C 내외의 쾌적한 초가을입니다.</p>
                     </div>
                     <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6">
                         <h4 class="font-bold text-amber-700 mb-3 flex items-center gap-2"><i class="fa-solid fa-seedling"></i> 유메노시마·다치가와·치바 — 공식 시찰</h4>
                         <p class="text-slate-600 text-sm leading-relaxed">유메노시마 열대식물관, 도쿄도 농림종합연구센터(토마토), 야마타네 정미공장(친환경 유통·가공)을 방문해 선진 도시·농정·유통 인프라를 시찰합니다.</p>
                     </div>
                     <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6">
-                        <h4 class="font-bold text-emerald-700 mb-3 flex items-center gap-2"><i class="fa-solid fa-torii-gate"></i> 메이지신궁 · 오모테산도</h4>
-                        <p class="text-slate-600 text-sm leading-relaxed">메이지 일왕부부의 덕을 모신 메이지신궁과 가로수길이 아름다운 오모테산도·아오야마, 신주쿠 거리를 둘러봅니다.</p>
+                        <h4 class="font-bold text-emerald-700 mb-3 flex items-center gap-2"><i class="fa-solid fa-shirt"></i> 오모테산도 · 신주쿠</h4>
+                        <p class="text-slate-600 text-sm leading-relaxed">가로수길이 아름다운 오모테산도·아오야마와 볼거리·즐길 거리가 많은 신주쿠 거리를 둘러봅니다.</p>
                     </div>
                     <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6">
                         <h4 class="font-bold text-rose-700 mb-3 flex items-center gap-2"><i class="fa-solid fa-fish"></i> 도요스 · 츠키지</h4>
@@ -474,6 +489,75 @@
                         </ul>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- ===== VISIT JAPAN ===== -->
+        <section id="visit-japan" class="py-16 bg-white border-t border-slate-200">
+            <div class="container mx-auto px-4 max-w-5xl">
+                <div class="text-center mb-10">
+                    <span class="text-pink-600 font-black tracking-widest text-xs uppercase"><i class="fa-solid fa-passport"></i> ENTRY PREP</span>
+                    <h2 class="text-3xl font-bold text-slate-800 mt-2">비짓재팬웹 작성 요령</h2>
+                    <p class="text-sm text-slate-500 mt-2">입국심사·세관신고를 하나의 QR로 진행합니다. 출국 전까지 미리 등록해 주세요.</p>
+                </div>
+
+                <div class="bg-white rounded-3xl shadow-md border border-pink-100 overflow-hidden mb-8">
+                    <div class="grid md:grid-cols-2">
+                        <div class="p-8 flex flex-col justify-center">
+                            <span class="inline-block bg-pink-600 text-white text-xs px-3 py-1 rounded-full font-bold shadow-sm mb-3 w-fit">일본 입국 필수</span>
+                            <h3 class="text-2xl font-bold text-slate-800 mb-2">Visit Japan Web</h3>
+                            <p class="text-slate-600 text-sm mb-6 leading-relaxed">나리타 도착 후 수속을 빠르게 마치려면 <span class="text-pink-600 font-bold">통합 QR코드</span>가 필요합니다. 스마트폰에서 등록하고, QR 화면을 캡처해 두세요.</p>
+                            <a href="https://www.vjw.digital.go.jp/" target="_blank" rel="noopener noreferrer" class="w-full bg-pink-600 hover:bg-pink-700 text-white font-bold py-3.5 rounded-xl text-center shadow-md transition-colors flex items-center justify-center gap-2">
+                                비짓재팬웹 바로가기 <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </a>
+                        </div>
+                        <div class="bg-pink-50 p-8 flex items-center justify-center border-t md:border-t-0 md:border-l border-pink-100">
+                            <div class="text-center">
+                                <div class="bg-white p-4 rounded-xl shadow-sm inline-block mb-4 relative">
+                                    <i class="fa-solid fa-qrcode text-8xl text-slate-800"></i>
+                                    <div class="absolute -top-2 -right-2 bg-pink-600 text-white text-[10px] font-bold px-2 py-1 rounded-full">통합 QR</div>
+                                </div>
+                                <p class="text-xs text-slate-500 font-medium">출국 전 미리 발급 · 화면 캡처 권장</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4 mb-6">
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
+                        <p class="text-xs font-bold text-tm mb-2">① 계정·본인 등록</p>
+                        <ul class="text-sm text-slate-600 space-y-1.5 leading-relaxed">
+                            <li>· 공식 사이트 접속 후 신규 계정 생성</li>
+                            <li>· 여권 영문 성명·여권번호·생년월일 정확히 입력</li>
+                            <li>· 여권 사진 페이지와 철자·숫자 일치 확인</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
+                        <p class="text-xs font-bold text-tm mb-2">② 입국·항공 일정</p>
+                        <ul class="text-sm text-slate-600 space-y-1.5 leading-relaxed">
+                            <li>· 입국일: <strong>2026.09.28</strong> / 출국일: <strong>2026.10.02</strong></li>
+                            <li>· 항공편: <strong>대한항공 KE703</strong> (인천→나리타)</li>
+                            <li>· 체류지: 데이나이스 도쿄 호텔 또는 동급</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
+                        <p class="text-xs font-bold text-tm mb-2">③ 세관신고·QR 발급</p>
+                        <ul class="text-sm text-slate-600 space-y-1.5 leading-relaxed">
+                            <li>· 세관신고 항목을 순서대로 작성</li>
+                            <li>· 통합 QR 발급 후 갤러리에 캡처 저장</li>
+                            <li>· 오프라인에서도 보여줄 수 있게 준비</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
+                        <p class="text-xs font-bold text-tm mb-2">④ 현장 유의사항</p>
+                        <ul class="text-sm text-slate-600 space-y-1.5 leading-relaxed">
+                            <li>· 입국심사·세관 창구에서 QR을 제시</li>
+                            <li>· 돼지·돼지고기 제품은 일본 반입 제한</li>
+                            <li>· 작성 문의는 담당(양리리)에게 연락</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="text-center text-xs text-slate-400">※ Visit Japan Web은 일본 정부 공식 서비스입니다. 화면·절차는 업데이트될 수 있습니다.</p>
             </div>
         </section>
 
@@ -576,7 +660,7 @@
                         <div class="flex items-center gap-4 mb-8 border-b pb-5">
                             <div class="bg-[#10b981] text-white text-xl font-bold w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 shadow-sm">2일</div>
                             <div>
-                                <h3 class="font-bold text-xl text-slate-800">도쿄 — 유메노시마 · 오다이바 · 메이지신궁</h3>
+                                <h3 class="font-bold text-xl text-slate-800">도쿄 — 유메노시마 · 오다이바 · 오모테산도</h3>
                                 <div class="mt-2 flex flex-wrap gap-2 text-xs font-bold">
                                     <span class="bg-slate-100 text-slate-500 px-2 py-1 rounded">조: 호텔식</span>
                                     <span class="bg-orange-50 text-orange-700 border border-orange-100 px-2 py-1 rounded">중: 일정식</span>
@@ -604,16 +688,6 @@
                                         <p class="text-sm text-slate-600 mt-2">레인보우브릿지 전경, 자유의 여신상, 다이버시티 등 임해 부도심을 관람합니다.</p>
                                     </div>
                                     <img src="assets/images/day2-odaiba.jpg" alt="오다이바" class="schedule-thumb">
-                                </div>
-                            </div>
-                            <div class="relative">
-                                <div class="timeline-dot bg-emerald-600 ring-emerald-100"></div>
-                                <div class="schedule-media">
-                                    <div class="schedule-desc">
-                                        <h4 class="font-bold text-lg text-slate-800">메이지신궁</h4>
-                                        <p class="text-sm text-slate-600 mt-2 leading-relaxed">메이지 일왕부부의 덕을 모신 도쿄의 대표 신사입니다. 도심 속 숲길을 따라 참배합니다.</p>
-                                    </div>
-                                    <img src="assets/images/day2-meiji.jpg" alt="메이지신궁 도리이" class="schedule-thumb">
                                 </div>
                             </div>
                             <div class="relative">
@@ -998,20 +1072,20 @@
                     <div class="md:w-5/12 text-center md:text-left">
                         <span class="inline-block bg-emerald-600 text-white text-xs px-4 py-1.5 rounded-full font-bold mb-4 shadow-md"><i class="fa-solid fa-leaf mr-1"></i> ESG 실천 대시보드</span>
                         <h2 class="text-3xl font-bold mb-4 leading-tight">디지털 전환(DX)을 통한<br>친환경 여행 문화</h2>
-                        <p class="text-slate-300 text-sm leading-relaxed">본 행사는 스마트 가이드북 도입을 통해 종이 인쇄를 줄이고, 환경 보호 실천에 동참합니다. (23명 기준)</p>
+                        <p class="text-slate-300 text-sm leading-relaxed">본 행사는 스마트 가이드북 도입을 통해 종이 인쇄를 줄이고, 환경 보호 실천에 동참합니다. (연수참가자 17명 기준)</p>
                     </div>
                     <div class="md:w-7/12 grid grid-cols-3 gap-4 w-full">
                         <div class="bg-white/10 backdrop-blur rounded-3xl p-6 border border-white/20 text-center shadow-lg">
                             <p class="text-emerald-300 text-xs font-bold mb-2">종이 절감</p>
-                            <p class="text-4xl font-black">184<span class="text-sm font-medium ml-1">장</span></p>
+                            <p class="text-4xl font-black">136<span class="text-sm font-medium ml-1">장</span></p>
                         </div>
                         <div class="bg-white/10 backdrop-blur rounded-3xl p-6 border border-white/20 text-center shadow-lg">
                             <p class="text-sky-300 text-xs font-bold mb-2">탄소 감소</p>
-                            <p class="text-4xl font-black">0.87<span class="text-sm font-medium ml-1">kg</span></p>
+                            <p class="text-4xl font-black">0.64<span class="text-sm font-medium ml-1">kg</span></p>
                         </div>
                         <div class="bg-white/10 backdrop-blur rounded-3xl p-6 border border-white/20 text-center shadow-lg">
                             <p class="text-blue-300 text-xs font-bold mb-2">물 절약</p>
-                            <p class="text-4xl font-black">1,725<span class="text-sm font-medium ml-1">L</span></p>
+                            <p class="text-4xl font-black">1,275<span class="text-sm font-medium ml-1">L</span></p>
                         </div>
                     </div>
                 </div>
@@ -1052,27 +1126,82 @@
     <div class="md:hidden fixed bottom-0 w-full bg-white/95 backdrop-blur-md border-t border-slate-200 flex justify-around py-2 pb-safe z-50 text-[10px] text-slate-500 font-medium shadow-[0_-10px_20px_-5px_rgba(0,0,0,0.05)] no-print">
         <a href="#home" class="flex flex-col items-center gap-1 p-2 text-tm"><i class="fa-solid fa-house text-xl mb-0.5"></i>홈</a>
         <a href="#map-section" class="flex flex-col items-center gap-1 p-2"><i class="fa-solid fa-map-location-dot text-xl mb-0.5"></i>동선</a>
-        <a href="#schedule" class="flex flex-col items-center gap-1 p-2"><i class="fa-regular fa-calendar-days text-xl mb-0.5"></i>일정표</a>
-        <a href="#smart-info" class="flex flex-col items-center gap-1 p-2"><i class="fa-solid fa-wand-magic-sparkles text-xl mb-0.5"></i>여행비서</a>
+        <a href="#schedule" class="flex flex-col items-center gap-1 p-2"><i class="fa-regular fa-calendar-days text-xl mb-0.5"></i>일정</a>
+        <a href="#visit-japan" class="flex flex-col items-center gap-1 p-2"><i class="fa-solid fa-passport text-xl mb-0.5"></i>입국</a>
+        <a href="#contact" class="flex flex-col items-center gap-1 p-2"><i class="fa-solid fa-phone text-xl mb-0.5"></i>연락</a>
     </div>
 
     <script>
         function showToast(m){const t=document.getElementById('toast');document.getElementById('toast-msg').innerText=m;t.classList.remove('translate-y-20','opacity-0');setTimeout(()=>t.classList.add('translate-y-20','opacity-0'),3000);}
 
+        // 개발용 테스트. 예: "2026-09-28"~"2026-10-02" → 당일 UI / "2026-09-27" 또는 "2026-10-03" → 숨김
+        // 빈 문자열이면 실제 오늘(Asia/Seoul). URL ?test_date=YYYY-MM-DD 가 있으면 TEST_DATE보다 우선.
+        const TEST_DATE = "";
+        const EVENT_DAYS = {
+            '2026-09-28': 'day1',
+            '2026-09-29': 'day2',
+            '2026-09-30': 'day3',
+            '2026-10-01': 'day4',
+            '2026-10-02': 'day5'
+        };
+
+        function getGuidebookToday() {
+            const q = new URLSearchParams(location.search).get('test_date');
+            if (q && /^\d{4}-\d{2}-\d{2}$/.test(q)) return q;
+            if (TEST_DATE) return TEST_DATE;
+            return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Seoul' }).format(new Date());
+        }
+        function ymdDiffDays(a, b) {
+            const [ay, am, ad] = a.split('-').map(Number);
+            const [by, bm, bd] = b.split('-').map(Number);
+            return Math.round((Date.UTC(ay, am - 1, ad) - Date.UTC(by, bm - 1, bd)) / 86400000);
+        }
+        function getTodayDayKey() {
+            return EVENT_DAYS[getGuidebookToday()] || null;
+        }
+        function goToTodaySchedule() {
+            const dayKey = getTodayDayKey();
+            if (dayKey) changeMapAndTab(dayKey);
+            document.getElementById('schedule')?.scrollIntoView({ behavior: 'smooth' });
+        }
+        function goToTodayRoute() {
+            const dayKey = getTodayDayKey();
+            if (dayKey) changeMapAndTab(dayKey);
+            document.getElementById('map-section')?.scrollIntoView({ behavior: 'smooth' });
+        }
+        function initEventDayUI() {
+            const bar = document.getElementById('event-day-bar');
+            if (!bar) return;
+            const dayKey = getTodayDayKey();
+            const isEventDay = !!dayKey;
+            bar.classList.toggle('hidden', !isEventDay);
+            document.body.classList.toggle('event-day', isEventDay);
+            if (dayKey) changeMapAndTab(dayKey);
+        }
+
         function updateDday(){
-            const start = new Date('2026-09-28T00:00:00'), end = new Date('2026-10-02T23:59:59'), today = new Date(); today.setHours(0,0,0,0);
-            const diff = Math.ceil((start-today)/86400000), badge = document.getElementById('d-day-badge'), hero = document.getElementById('hero-date');
-            if(diff>0){
-                badge.className='bg-tm text-white text-[10px] px-3 py-1 rounded-full font-bold shadow-sm animate-pulse'; badge.innerText='D-'+diff;
-            } else if(today<=end){
-                const d = Math.abs(diff)+1;
-                badge.className='bg-rose-500 text-white text-[10px] px-3 py-1 rounded-full font-bold shadow-sm animate-pulse'; badge.innerText='📍 '+d+'일차 진행중';
-                hero.innerHTML='현재 도쿄 여정의 '+d+'일차가 진행 중입니다.';
-                hero.className='text-base md:text-lg text-white font-bold bg-rose-500/80 inline-block px-6 py-2.5 rounded-2xl mt-4 backdrop-blur-sm shadow-xl tracking-wide';
+            const today = getGuidebookToday();
+            const start = '2026-09-28', end = '2026-10-02';
+            const badge = document.getElementById('d-day-badge'), hero = document.getElementById('hero-date');
+            if(!badge) return;
+            if(today < start){
+                badge.className='bg-tm text-white text-[10px] px-3 py-1 rounded-full font-bold shadow-sm animate-pulse';
+                badge.innerText='D-'+ymdDiffDays(start, today);
+            } else if(today <= end){
+                const d = ymdDiffDays(today, start) + 1;
+                badge.className='bg-rose-500 text-white text-[10px] px-3 py-1 rounded-full font-bold shadow-sm animate-pulse';
+                badge.innerText='📍 '+d+'일차 진행중';
+                if(hero){
+                    hero.innerHTML='현재 도쿄 여정의 '+d+'일차가 진행 중입니다.';
+                    hero.className='text-base md:text-lg text-white font-bold bg-rose-500/80 inline-block px-6 py-2.5 rounded-2xl mt-4 backdrop-blur-sm shadow-xl tracking-wide';
+                }
             } else {
-                badge.className='bg-slate-500 text-white text-[10px] px-3 py-1 rounded-full font-bold'; badge.innerText='🏁 여정 종료';
-                hero.innerHTML='모든 여정이 종료되었습니다. 좋은 추억으로 오래 간직되길 바랍니다.';
-                hero.className='text-sm md:text-base text-slate-200 font-medium bg-slate-800/80 inline-block px-6 py-2.5 rounded-2xl mt-4 backdrop-blur-sm border border-slate-600 shadow-xl tracking-wide';
+                badge.className='bg-slate-500 text-white text-[10px] px-3 py-1 rounded-full font-bold';
+                badge.innerText='🏁 여정 종료';
+                if(hero){
+                    hero.innerHTML='모든 여정이 종료되었습니다. 좋은 추억으로 오래 간직되길 바랍니다.';
+                    hero.className='text-sm md:text-base text-slate-200 font-medium bg-slate-800/80 inline-block px-6 py-2.5 rounded-2xl mt-4 backdrop-blur-sm border border-slate-600 shadow-xl tracking-wide';
+                }
             }
         }
         updateDday();
@@ -1087,7 +1216,6 @@
             hotel:       { c:[35.6705, 139.7935], t:'데이나이스 도쿄', col:'#1a3b95', i:'<i class="fa-solid fa-hotel"></i>' },
             yumenoshima: { c:[35.6500, 139.8314], t:'유메노시마 열대식물관', col:'#10b981', i:'<i class="fa-solid fa-leaf"></i>' },
             odaiba:      { c:[35.6290, 139.7750], t:'오다이바', col:'#10b981', i:'<i class="fa-solid fa-bridge-water"></i>' },
-            meiji:       { c:[35.6764, 139.6993], t:'메이지신궁', col:'#10b981', i:'<i class="fa-solid fa-torii-gate"></i>' },
             omotesando:  { c:[35.6652, 139.7122], t:'오모테산도', col:'#10b981', i:'<i class="fa-solid fa-shirt"></i>' },
             shinjuku:    { c:[35.6938, 139.7034], t:'신주쿠', col:'#10b981', i:'<i class="fa-solid fa-city"></i>' },
             tachikawa:   { c:[35.7023, 139.4057], t:'농림종합연구센터', col:'#f59e0b', i:'<i class="fa-solid fa-flask"></i>' },
@@ -1100,7 +1228,7 @@
         const mapHints = {
             all:  '✈️ 전체 보기: 대한항공 직항 노선 (KE703 · KE704)',
             day1: '📍 1일차: 나리타 → 마루노우치·황거 → 호텔',
-            day2: '📍 2일차: 유메노시마 → 오다이바 → 메이지신궁 → 오모테산도·신주쿠',
+            day2: '📍 2일차: 유메노시마 → 오다이바 → 오모테산도·신주쿠',
             day3: '📍 3일차: 다치가와 농림연구센터 → 아사쿠사 → 스카이트리',
             day4: '📍 4일차: 도요스(10:00) → 야마타네(14:30) → 호텔',
             day5: '📍 5일차: 츠키지 → 나리타 → 귀국'
@@ -1115,11 +1243,10 @@
                 {from:'marunouchi', to:'imperial', mode:'bus', c:'#0ea5e9'},
                 {from:'imperial', to:'hotel', mode:'bus', c:'#0ea5e9'}
             ]},
-            day2: { p:['hotel','yumenoshima','odaiba','meiji','omotesando','shinjuku'], zoom:['hotel','yumenoshima','odaiba','meiji','omotesando','shinjuku'], maxZoom:12, segs:[
+            day2: { p:['hotel','yumenoshima','odaiba','omotesando','shinjuku'], zoom:['hotel','yumenoshima','odaiba','omotesando','shinjuku'], maxZoom:12, segs:[
                 {from:'hotel', to:'yumenoshima', mode:'bus', c:'#10b981'},
                 {from:'yumenoshima', to:'odaiba', mode:'bus', c:'#10b981'},
-                {from:'odaiba', to:'meiji', mode:'bus', c:'#10b981'},
-                {from:'meiji', to:'omotesando', mode:'bus', c:'#10b981'},
+                {from:'odaiba', to:'omotesando', mode:'bus', c:'#10b981'},
                 {from:'omotesando', to:'shinjuku', mode:'bus', c:'#10b981'}
             ]},
             day3: { p:['hotel','tachikawa','sensoji','skytree'], zoom:['hotel','tachikawa','sensoji','skytree'], maxZoom:10, segs:[
@@ -1299,7 +1426,9 @@
                 attribution: 'Tiles &copy; Esri'
             }).addTo(map);
             layerGroup = L.layerGroup().addTo(map);
-            changeMapAndTab(isMobileMap() ? 'day1' : 'all');
+            const startKey = getTodayDayKey() || (isMobileMap() ? 'day1' : 'all');
+            changeMapAndTab(startKey);
+            initEventDayUI();
         }
 
         async function changeMapAndTab(dayId) {
