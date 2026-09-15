@@ -17,6 +17,7 @@ https://indadady.github.io/260928_Tokyo/
 | 호텔 | 데이나이스 도쿄 호텔 OR 동급 |
 | 호텔 사이트 | https://daynice-hotel.com/ |
 | 문서번호 | SV-260928-TOKYO |
+| 방문기관 | 5곳 · 1일 마루노우치 · 2일 유메노시마 열대식물관 · 3일 농림종합연구센터 · 4일 도요스 시장 · 4일 야마타네 정미공장 |
 
 ## Contacts
 

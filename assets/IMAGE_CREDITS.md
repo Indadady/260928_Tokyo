@@ -15,6 +15,7 @@
 | day2-odaiba.jpg | [Commons: Rainbow Bridge Odaiba](https://commons.wikimedia.org/wiki/File:Rainbow_Bridge,_Tokyo,_South_view_from_Odaiba_20190419_1.jpg) | CC BY-SA (per file page) |
 | day2-toyosu.jpg | [Commons: Toyosu Market Tokyo 2.jpg](https://commons.wikimedia.org/wiki/File:Toyosu_Market_Tokyo_2.jpg) | CC BY-SA (per file page) |
 | day3-chiba.jpg | [Commons: Accordia Golf Narashino Inzai aerial](https://commons.wikimedia.org/wiki/File:Accordia_Golf_Narashino_Country_Club,_Inzai_Chiba_Aerial_photograph.2008.jpg) — 인자이시 일대 참고 | Government of Japan aerial (per file page) |
+| day3-tachikawa.jpg | [Commons: Tokyo Metropolitan Agriculture And Forestry Research Center](https://commons.wikimedia.org/wiki/File:Tokyo_Metropolitan_Agriculture_And_Forestry_Research_Center.jpg) | CC (per file page) |
 | day4-skytree.jpg | Wikimedia Commons Tokyo Skytree | CC (per file page) |
 | day5-tsukiji.jpg | [Commons: Tsukiji Outer Market](https://commons.wikimedia.org/wiki/File:Tsukiji_Outer_Market_2.jpg) | CC (per file page) |
 | syncverse-logo.png | SYNCVERSE 브랜드 자산 | 담당자 제공 |
