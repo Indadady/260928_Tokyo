@@ -11,8 +11,9 @@
 | day1-shinjuku.jpg | Wikimedia Commons Kabukicho neon street | CC (per file page) |
 | day1-sensoji.jpg | [Commons: Senso-ji Temple @ Asakusa](https://commons.wikimedia.org/wiki/File:Senso-ji_Temple_@_Asakusa_(14019477806).jpg) | CC BY (per file page) |
 | day2-yumenoshima.jpg | [Commons: Yumenoshima Tropical Greenhouse Dome](https://commons.wikimedia.org/wiki/File:Yumenoshima_Tropical_Greenhouse_Dome.jpg) | CC (per file page) |
+| day2-chiba-univ.jpg | [Commons: Chiba-Dai Kashiwanoha Campus](https://commons.wikimedia.org/wiki/File:Chiba-Dai_Kashiwanoha_Campus.jpg) | CC (per file page) |
 | day2-meiji.jpg | [Commons: Torii at Meiji Shrine](https://commons.wikimedia.org/wiki/File:Torii_at_Meiji_Shrine_in_Shibuya,_Tokyo,_2019_-_102.jpg) | CC (per file page) |
-| day2-odaiba.jpg | [Commons: Rainbow Bridge Odaiba](https://commons.wikimedia.org/wiki/File:Rainbow_Bridge,_Tokyo,_South_view_from_Odaiba_20190419_1.jpg) | CC BY-SA (per file page) |
+| day2-odaiba.jpg | [Commons: Rainbow Bridge Odaiba](https://commons.wikimedia.org/wiki/File:Rainbow_Bridge,_Tokyo,_South_view_from_Odaiba_20190419_1.jpg) — 일정 제외(보관) | CC BY-SA (per file page) |
 | day2-toyosu.jpg | [Commons: Toyosu Market Tokyo 2.jpg](https://commons.wikimedia.org/wiki/File:Toyosu_Market_Tokyo_2.jpg) | CC BY-SA (per file page) |
 | day3-chiba.jpg | [Commons: Accordia Golf Narashino Inzai aerial](https://commons.wikimedia.org/wiki/File:Accordia_Golf_Narashino_Country_Club,_Inzai_Chiba_Aerial_photograph.2008.jpg) — 인자이시 일대 참고 | Government of Japan aerial (per file page) |
 | day3-tachikawa.jpg | [Commons: Tokyo Metropolitan Agriculture And Forestry Research Center](https://commons.wikimedia.org/wiki/File:Tokyo_Metropolitan_Agriculture_And_Forestry_Research_Center.jpg) | CC (per file page) |
